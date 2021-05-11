@@ -11,7 +11,7 @@ from django.views.generic import (
     DeleteView
 )
 # from .models import Post, Category, Comment
-from .models import Post, Category, Comment
+from .models import Post, Comment
 
 from django.http import HttpResponseRedirect
 
