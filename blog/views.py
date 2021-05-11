@@ -10,7 +10,9 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+# from .models import Post, Category, Comment
 from .models import Post, Category, Comment
+
 from django.http import HttpResponseRedirect
 
 # posts = [
@@ -43,11 +45,11 @@ class PostListView(ListView):
     ordering = '-date_posted'
     paginate_by = 5
 
-    def get_context_data(self, *args, **kwargs):
-        cat_menu = Category.objects.all()
-        context = super(PostListView, self).get_context_data(*args, **kwargs)
-        context["cat_menu"] = cat_menu
-        return context
+    # def get_context_data(self, *args, **kwargs):
+    #     cat_menu = Category.objects.all()
+    #     context = super(PostListView, self).get_context_data(*args, **kwargs)
+    #     context["cat_menu"] = cat_menu
+    #     return context
 
 
 class UserPostListView(ListView):
@@ -65,7 +67,7 @@ class PostDetailView(DetailView):
     model = Post
 
     def get_context_data(self, *args, **kwargs):
-        cat_menu = Category.objects.all()
+        # cat_menu = Category.objects.all()
         context = super(PostDetailView, self).get_context_data(*args, **kwargs)
 
         stuff = get_object_or_404(Post, id=self.kwargs['pk'])
@@ -75,7 +77,7 @@ class PostDetailView(DetailView):
         if stuff.likes.filter(id=self.request.user.id).exists():
             liked = True
 
-        context["cat_menu"] = cat_menu
+        # context["cat_menu"] = cat_menu
         context["total_likes"] = total_likes
         context['liked'] = liked
         return context
@@ -118,9 +120,9 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-def categoryview(request, cats):
-    category_posts = Post.objects.filter(category=cats)
-    return render(request, 'blog/categories.html', {'cats': cats, 'category_posts': category_posts})
+# def categoryview(request, cats):
+#     category_posts = Post.objects.filter(category=cats)
+#     return render(request, 'blog/categories.html', {'cats': cats, 'category_posts': category_posts})
 
 
 def likeview(request, pk):

@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse('blog-home')
+# class Category(models.Model):
+#     name = models.CharField(max_length=100)
+#
+#     def __str__(self):
+#         return self.name
+#
+#     def get_absolute_url(self):
+#         return reverse('blog-home')
 
 
 class Post(models.Model):
@@ -19,7 +19,7 @@ class Post(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.CharField(max_length=100, default='coding')
+    # category = models.CharField(max_length=100, default='coding')
     likes = models.ManyToManyField(User, related_name='blog_posts')
 
     def total_likes(self):
